@@ -122,6 +122,7 @@ struct redisServer server; /* server global state */
  */
 struct redisCommand redisCommandTable[] = {
     //
+    {"mygetkeys",mygetkeysCommand,0,"r",0,NULL,1,1,1,0,0},
     {"myget",mygetCommand,2,"rF",0,NULL,1,1,1,0,0},
     {"myset",mysetCommand,3,"wm",0,NULL,1,1,1,0,0},
     //

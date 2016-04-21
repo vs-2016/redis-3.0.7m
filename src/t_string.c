@@ -89,7 +89,12 @@ void setGenericCommand(redisClient *c, int flags, robj *key, robj *val, robj *ex
         "expire",key,c->db->id);
     addReply(c, ok_reply ? ok_reply : shared.ok);
 }
-//****************************************************************
+/**/
+void mygetkeysCommand(redisClient *c){
+    unsigned long keynum=c->db->dict->ht[0].used+c->db->dict->ht[1].used;
+    robj *o=createStringObjectFromLongLong(keynum);
+    addReplyBulk(c,o);
+}
 //encode the content of o->ptr by xor with 0x1 in byte, only encode string objects
 robj* encodeObj(robj *o){
     size_t len;
@@ -115,7 +120,7 @@ int mygetGenericCommand(redisClient *c) {
     } else {
         robj *r=encodeObj(o);
         addReplyBulk(c,r);
-        freeStringObject(r);
+        //freeStringObject(r);
         return REDIS_OK;
     }
 }
@@ -128,6 +133,7 @@ void mysetCommand(redisClient *c){
     freeStringObject(c->argv[2]);
     setCommand(c);
 }
+/**/
 //****************************************************************
 /* SET key value [NX] [XX] [EX <seconds>] [PX <milliseconds>] */
 void setCommand(redisClient *c) {

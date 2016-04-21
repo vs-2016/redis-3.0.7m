@@ -1398,6 +1398,7 @@ uint64_t redisBuildId(void);
 
 /* Commands prototypes */
 //mycommand add
+void mygetkeysCommand(redisClient *c);
 void mygetCommand(redisClient *c);
 void mysetCommand(redisClient *c);
 //
